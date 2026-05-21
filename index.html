@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEET Paper Leak — A National Betrayal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c0392b;
+    --dark-red: #7b241c;
+    --ink: #1a1a1a;
+    --cream: #fdf6e3;
+    --ash: #e8e0d0;
+    --gold: #d4a017;
+    --muted: #6b5e4e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(192,57,43,0.06) 40px,
+      rgba(192,57,43,0.06) 41px
+    );
+  }
+
+  .hero-stamp {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(11px, 2vw, 15px);
+    letter-spacing: 8px;
+    color: var(--red);
+    margin-bottom: 24px;
+    animation: fadeSlideDown 1s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 10vw, 110px);
+    line-height: 0.92;
+    color: var(--cream);
+    font-weight: 900;
+    max-width: 900px;
+    animation: fadeSlideDown 1s 0.2s ease both;
+  }
+
+  .hero h1 span {
+    color: var(--red);
+    display: block;
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: #aaa;
+    margin-top: 28px;
+    max-width: 560px;
+    line-height: 1.7;
+    font-weight: 300;
+    animation: fadeSlideDown 1s 0.4s ease both;
+  }
+
+  .scroll-cue {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+    font-size: 12px;
+    letter-spacing: 3px;
+    animation: fadeSlideDown 1s 0.8s ease both;
+  }
+
+  .scroll-cue .line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, #555, transparent);
+    animation: pulse 2s infinite;
+  }
+
+  /* COCKROACH SECTION */
+  .cockroach-section {
+    background: #111;
+    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cockroach-stage {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin-bottom: 40px;
+  }
+
+  /* SVG Cockroach */
+  .cockroach-svg {
+    width: 180px;
+    height: 180px;
+    animation: roachWiggle 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(192,57,43,0.5));
+  }
+
+  .podium {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 70px;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    border-top: 3px solid var(--red);
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--red);
+  }
+
+  .speech-bubble {
+    background: var(--red);
+    color: white;
+    padding: 20px 26px;
+    border-radius: 12px;
+    max-width: 520px;
+    font-size: 16px;
+    line-height: 1.7;
+    font-style: italic;
+    position: relative;
+    margin-bottom: 12px;
+    animation: bubblePop 0.6s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 7px solid transparent;
+    border-top-color: var(--red);
+  }
+
+  .cockroach-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 5px;
+    color: #555;
+    margin-top: 24px;
+  }
+
+  /* STATS BANNER */
+  .stats-bar {
+    background: var(--red);
+    padding: 50px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: white;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* QUOTES SECTION */
+  .quotes-section {
+    padding: 100px 20px;
+    background: var(--cream);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .section-header .eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .quote-card {
+    background: white;
+    border-left: 5px solid var(--red);
+    padding: 36px 30px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .quote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+
+  .quote-card:nth-child(even) {
+    background: var(--ink);
+    border-left-color: var(--gold);
+  }
+
+  .quote-card:nth-child(even) p {
+    color: var(--ash);
+  }
+
+  .quote-card:nth-child(even) .quote-mark {
+    color: var(--gold);
+  }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--red);
+    line-height: 0.5;
+    margin-bottom: 16px;
+    display: block;
+    opacity: 0.4;
+  }
+
+  .quote-card p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  /* CORRUPTION VISUAL */
+  .corruption-section {
+    background: var(--ink);
+    padding: 100px 20px;
+    text-align: center;
+  }
+
+  .corruption-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 5vw, 56px);
+    color: var(--cream);
+    max-width: 800px;
+    margin: 0 auto 60px;
+    line-height: 1.2;
+  }
+
+  .corruption-section h2 em {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .timeline {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--red);
+    transform: translateX(-50%);
+    opacity: 0.3;
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 50px;
+    text-align: left;
+  }
+
+  .tl-item:nth-child(even) {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .tl-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+    margin-top: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tl-content {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    padding: 20px 24px;
+    border-radius: 4px;
+  }
+
+  .tl-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .tl-content p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* DEMAND SECTION */
+  .demand-section {
+    background: var(--red);
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .demand-section::before {
+    content: 'JUSTICE';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(0,0,0,0.08);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .demand-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 7vw, 80px);
+    color: white;
+    font-weight: 900;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .demands-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    position: relative;
+  }
+
+  .demand-chip {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    transition: background 0.3s;
+  }
+
+  .demand-chip:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  .final-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    color: rgba(255,255,255,0.85);
+    font-style: italic;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  /* STUDENT SECTION */
+  .students-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 60px auto 0;
+  }
+
+  .student-card {
+    background: var(--cream);
+    padding: 30px 24px;
+    border-radius: 4px;
+    border-top: 4px solid var(--gold);
+    text-align: center;
+  }
+
+  .student-icon {
+    font-size: 50px;
+    margin-bottom: 16px;
+  }
+
+  .student-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
+  .student-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 60px 20px 40px;
+    text-align: center;
+  }
+
+  footer .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--red);
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+
+  footer p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  footer .hashtag {
+    margin-top: 30px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes roachWiggle {
+    0%, 100% { transform: rotate(-4deg) scale(1); }
+    50% { transform: rotate(4deg) scale(1.04); }
+  }
+
+  @keyframes bubblePop {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .timeline::before { left: 20px; }
+    .tl-item, .tl-item:nth-child(even) {
+      flex-direction: row;
+      text-align: left;
+    }
+    .tl-dot { margin-left: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-stamp">INDIA DEMANDS ACCOUNTABILITY</div>
+  <h1>NEET Paper<span>Leak.</span></h1>
+  <p class="hero-sub">
+    A scandal that didn't just compromise an exam — it shattered 22 lakh futures, 
+    crushed parental sacrifices, and exposed the rot at the heart of India's education system.
+  </p>
+  <div class="scroll-cue">
+    <div class="line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- COCKROACH SPEAKING -->
+<section class="cockroach-section">
+  <div class="speech-bubble">
+    "Why study for 5 years when you can buy the paper for ₹50 lakh? 
+    The system is my playground — and nobody stops me."
+  </div>
+
+  <!-- SVG Cockroach at Podium -->
+  <div class="cockroach-stage">
+    <svg class="cockroach-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 10px;">
+      <!-- Body -->
+      <ellipse cx="100" cy="130" rx="38" ry="60" fill="#3a2a10"/>
+      <!-- Head -->
+      <ellipse cx="100" cy="68" rx="26" ry="22" fill="#4a3515"/>
+      <!-- Eyes -->
+      <circle cx="90" cy="62" r="6" fill="#c0392b"/>
+      <circle cx="110" cy="62" r="6" fill="#c0392b"/>
+      <circle cx="91" cy="61" r="2.5" fill="white"/>
+      <circle cx="111" cy="61" r="2.5" fill="white"/>
+      <!-- Antennae -->
+      <line x1="88" y1="50" x2="60" y2="20" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="112" y1="50" x2="140" y2="20" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="60" cy="20" r="3" fill="#c0392b"/>
+      <circle cx="140" cy="20" r="3" fill="#c0392b"/>
+      <!-- Wings -->
+      <ellipse cx="76" cy="120" rx="22" ry="48" fill="#2a1e0a" opacity="0.7" transform="rotate(-14 76 120)"/>
+      <ellipse cx="124" cy="120" rx="22" ry="48" fill="#2a1e0a" opacity="0.7" transform="rotate(14 124 120)"/>
+      <!-- Legs left -->
+      <line x1="72" y1="100" x2="40" y2="88" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="70" y1="120" x2="34" y2="116" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="72" y1="148" x2="42" y2="162" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Legs right -->
+      <line x1="128" y1="100" x2="160" y2="88" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="130" y1="120" x2="166" y2="116" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="128" y1="148" x2="158" y2="162" stroke="#3a2a10" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Mouth/smirk -->
+      <path d="M 92 76 Q 100 82 108 76" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- Tiny briefcase -->
+      <rect x="118" y="140" width="24" height="18" rx="2" fill="#6b4f1a"/>
+      <rect x="123" y="136" width="14" height="5" rx="2" fill="#8b6f2a" stroke="#6b4f1a" stroke-width="1"/>
+      <line x1="130" y1="140" x2="130" y2="158" stroke="#c0392b" stroke-width="1.5"/>
+      <line x1="118" y1="149" x2="142" y2="149" stroke="#c0392b" stroke-width="1.5"/>
+    </svg>
+    <div class="podium">THE PAPER LEAKER</div>
+  </div>
+
+  <p class="cockroach-label">THE FACE OF CORRUPTION</p>
+  <p style="color:#555;max-width:480px;margin:14px auto 0;font-size:14px;line-height:1.7;text-align:center;">
+    This is what happens when the system has no accountability —
+    parasites thrive while hardworking students are left behind.
+  </p>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">22L+</div>
+    <div class="stat-label">Dreams Shattered</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">₹50L</div>
+    <div class="stat-label">Reported Price of a Paper</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5 Yrs</div>
+    <div class="stat-label">Average Student Prep Time</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Fair Shots Given</div>
+  </div>
+</div>
+
+<!-- QUOTES -->
+<section class="quotes-section">
+  <div class="section-header">
+    <div class="eyebrow">VOICES OF THE WRONGED</div>
+    <h2>Words That Must Be Heard</h2>
+  </div>
+  <div class="quotes-grid">
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>The NEET paper leak is not just a failure of a system — it is a betrayal of 22 lakh young dreams.</p>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>While millions of students sacrificed years of sleep and parents spent their life savings for a fair shot, a corrupt few bought their way to the top.</p>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>When a paper leaks, it is a leak of public trust and hope — not just questions on a sheet.</p>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>We do not want endless delays or excuses. We demand absolute accountability and a system where hard work cannot be stolen by money.</p>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>To the authorities: when you compromise our exams, you compromise India's future. We demand transparency, and we demand justice now.</p>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>Every topper who cheated took the seat of a child who studied under a streetlight. That is not merit — that is murder of meritocracy.</p>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>A doctor made from a leaked paper holds a stethoscope over your chest someday. Remember that when you say this leak was "minor."</p>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>The pen that leaked the paper is mightier than the sword that ended a thousand students' ambitions. Punish it accordingly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT HAPPENED -->
+<section class="corruption-section">
+  <h2>How <em>Corruption</em> Hijacked the Nation's Biggest Exam</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>Inside Job at Printing Press</h4>
+        <p>Leaked before papers even reached exam centers — insiders with access sold question sets to syndicates weeks in advance.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>Paid Networks Activated</h4>
+        <p>Coaching networks and middlemen distributed papers via encrypted groups. Price: ₹30–50 lakh per student.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>Results Seemed "Impossible"</h4>
+        <p>Record number of perfect scorers from the same exam centers raised red flags that could no longer be ignored.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>Students Hit the Streets</h4>
+        <p>Protests erupted across India. The CBI launched investigations. Supreme Court intervened. But the damage was done.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>22 Lakh Wait for Justice</h4>
+        <p>Re-examinations, disrupted admissions, mental health crises — the fallout continues to ripple through millions of families.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMAND SECTION -->
+<section class="demand-section">
+  <h2>We Demand Justice.</h2>
+  <div class="demands-list">
+    <div class="demand-chip">🔍 Full CBI Investigation</div>
+    <div class="demand-chip">⚖️ Punish All Culprits</div>
+    <div class="demand-chip">📋 Transparent Re-exam</div>
+    <div class="demand-chip">🔐 Digital Paper Security</div>
+    <div class="demand-chip">👁️ Live CCTV at Centers</div>
+    <div class="demand-chip">🧾 Independent Oversight Board</div>
+    <div class="demand-chip">❌ No Compromise on Merit</div>
+    <div class="demand-chip">🏛️ Reform NTA Immediately</div>
+  </div>
+  <p class="final-quote">
+    "A nation's conscience is tested not by how its elites succeed,
+    but by how fiercely it protects the dreams of its ordinary children."
+  </p>
+</section>
+
+<!-- WHO WAS HURT -->
+<section class="students-section">
+  <div class="section-header">
+    <div class="eyebrow" style="color:var(--red)">THE REAL VICTIMS</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,56px);font-weight:900;">Students Who Played Fair</h2>
+  </div>
+  <div class="students-grid">
+    <div class="student-card">
+      <div class="student-icon">📚</div>
+      <h4>The Village Scholar</h4>
+      <p>Studied 16 hours a day with no coaching, no tutor — only a burning dream to become a doctor for their community.</p>
+    </div>
+    <div class="student-card">
+      <div class="student-icon">🕯️</div>
+      <h4>The Midnight Grinder</h4>
+      <p>Borrowed a neighbor's bulb to study past midnight because there was no stable electricity at home.</p>
+    </div>
+    <div class="student-card">
+      <div class="student-icon">👨‍👩‍👧</div>
+      <h4>The Farmer's Daughter</h4>
+      <p>Her father sold half an acre of land to fund coaching fees — all rendered meaningless by a leaked paper.</p>
+    </div>
+    <div class="student-card">
+      <div class="student-icon">💔</div>
+      <h4>The 3rd-Attempt Student</h4>
+      <p>Gave up a job, a relationship, and three years of life — only to face a compromised exam on the final attempt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">STOP THE LEAK</div>
+  <p>
+    This page is a tribute to every student who studied honestly.
+    To every parent who sacrificed silently. To every dream that was stolen by greed.
+    India's future cannot be bought. It must be earned.
+  </p>
+  <div class="hashtag">#JusticeForNEETStudents &nbsp;·&nbsp; #StopPaperLeak &nbsp;·&nbsp; #ReformNTA</div>
+</footer>
+
+</body>
+</html>
